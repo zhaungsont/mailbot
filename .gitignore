@@ -1,8 +1,8 @@
-# Passwords
+# Secrets
 credentials.js
-# API key
 apikeys.json
 account.json
+syllabus.json
 # Receivers
 receivers.txt
 # Logs

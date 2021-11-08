@@ -14,9 +14,11 @@ const app = express();
 
 //openweather url
 const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=Taipei&appid=" + apikeys.openweatherKey + "&units=metric&lang=zh_tw";
-console.log(weatherUrl)
 //quote url
 const quoteUrl = "https://quotes.rest/qod";
+
+//課表
+const syllabus = require('./syllabus.json');
 
 //yahoo finance
 const axios = require("axios").default;
@@ -24,30 +26,55 @@ let financeOptions = {
   method: 'GET',
   url: 'https://yfapi.net/v6/finance/quote',
   params: {
-    symbols: '^DJI,^GSPC,BTC-USD'
+    symbols: '^DJI,^GSPC,^TWII,'
   },
   headers: {
     'x-api-key': apikeys.financeKey
   }
 };
-let fName = null;
-let fPrice = null;
-let sName = null;
-let sPrice = null;
-let stockBrief = "";
+let DJIName = null;
+let DJIPrice = null;
+let DJICurrency = null;
+let DJIChangePercent = null;
+
+let GSPCName = null;
+let GSPCPrice = null;
+let GSPCCurrency = null;
+let GSPCChangePercent = null;
+
+let TWIIName = null;
+let TWIIPrice = null;
+let TWIICurrency = null;
+let TWIIChangePercent = null;
+
+let usStockBrief = "";
+let twStockBrief = "";
 
 //////////////////// Start Job Schedule ////////////////////
-const job = schedule.scheduleJob('10 * * * * *', function() {
+const job = schedule.scheduleJob('1 * 8 * * *', function() {
 
   //Get DYNAMIC Stock Info
   axios.request(financeOptions).then(function(response) {
-    fName = response.data.quoteResponse.result[0].shortName;
-    fPrice = response.data.quoteResponse.result[0].regularMarketChange;
+    DJIName = response.data.quoteResponse.result[0].shortName;
+    DJIPrice = Math.round(response.data.quoteResponse.result[0].regularMarketChange * 100) / 100;
+    DJICurrency = response.data.quoteResponse.result[0].currency;
+    DJIChangePercent = Math.round(response.data.quoteResponse.result[0].regularMarketChangePercent * 100) / 100;
 
-    sName = response.data.quoteResponse.result[1].shortName;
-    sPrice = response.data.quoteResponse.result[1].regularMarketChange;
-    stockBrief = `Latest price for ${fName}: $${fPrice}; <br>Latest price for ${sName}: $${sPrice}.`;
-    console.log(stockBrief);
+    GSPCName = response.data.quoteResponse.result[1].shortName;
+    GSPCPrice = Math.round(response.data.quoteResponse.result[1].regularMarketChange * 100) / 100;
+    GSPCCurrency = response.data.quoteResponse.result[1].currency;
+    GSPCChangePercent = Math.round(response.data.quoteResponse.result[1].regularMarketChangePercent * 100) / 100;
+
+    TWIIName = response.data.quoteResponse.result[2].shortName;
+    TWIIPrice = Math.round(response.data.quoteResponse.result[2].regularMarketChange * 100) / 100;
+    TWIICurrency = response.data.quoteResponse.result[2].currency;
+    TWIIChangePercent = Math.round(response.data.quoteResponse.result[2].regularMarketChangePercent * 100) / 100;
+
+
+
+    usStockBrief = `${DJIName} 即時價格：${DJIPrice} ${DJICurrency}，漲跌 ${DJIChangePercent}<br>${GSPCName} 即時價格：${GSPCPrice} ${GSPCCurrency}，漲跌 ${GSPCChangePercent}`;
+    twStockBrief = `${TWIIName} 即時價格：${TWIIPrice} ${TWIICurrency}，漲跌 ${TWIIChangePercent}`;
+    console.log(twStockBrief);
   }).catch(function(error) {
     console.error(error);
   });
@@ -59,6 +86,10 @@ const job = schedule.scheduleJob('10 * * * * *', function() {
   const day = date.getDate();
   const timeStr = `${year}/${month}/${day}`;
   const time = `${date.getHours()}時${date.getMinutes()}分${date.getUTCSeconds()}秒`;
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const weekday = days[ date.getDay() ];
+console.log(weekday);
+
 
   https.get(weatherUrl, function(response) {
     console.log(response.statusCode);
@@ -84,19 +115,21 @@ const job = schedule.scheduleJob('10 * * * * *', function() {
           const quoteAuther = "placeholder";
           console.log(quoteText);
 
-          const tempStatement = "The current temperature in Taipei is <strong>" + temp + "°C</strong>. <br>The lowest can be <strong>" + tempMin + "°C</strong> and the highest <strong>" + tempMax + "°C</strong>. Weather description: " + desc;
-          const quoteOfTheDay = "Quote of the day: <br>" + quoteText + "<br> --" + quoteAuther;
+          const tempStatement = "<strong>目前台北氣溫" + temp + "°C</strong>。<br>最低<strong>" + tempMin + "°C</strong>，最高<strong>" + tempMax + "°C</strong>。<br>天氣狀態：" + desc+"。";
+          const quoteOfTheDay = "<strong>Quote of the day: </strong><br>" + quoteText + "<br> —" + quoteAuther;
 
           const content = `
         Good morning, <br>
-        This is sakana's automatic email briefing. It is scheduled at 8am every morning.<br>
-        If you're seeing this, it means I've successfully created my first automatic mail bot. <br><br>
+        This is sakana's automatic email briefing. It is scheduled at 8am every morning.<br><br>
         <strong>Here's your morning briefing: </strong><br>
         <ul>
         <li>${tempStatement}</li><br>
+        <li><strong>美股資訊：</strong><br>${usStockBrief}</li><br>
+        <li><strong>台股資訊：</strong><br>${twStockBrief}</li><br>
         <li>${quoteOfTheDay}</li><br>
-        <li>${stockBrief}</li>
         </ul>
+        <p>今日是 ${weekday} ，今日課程：${syllabus[weekday]}。
+        </p>
         Morning briefing over.<br>
         寄出時間：${time}`
 
