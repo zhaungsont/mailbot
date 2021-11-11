@@ -51,7 +51,7 @@ let usStockBrief = "";
 let twStockBrief = "";
 
 //////////////////// Start Job Schedule ////////////////////
-const job = schedule.scheduleJob('1 30 14 * * *', function() {
+const job = schedule.scheduleJob('1 57 * * * *', function() {
 
   //Get DYNAMIC Stock Info
   axios.request(financeOptions).then(function(response) {
@@ -109,10 +109,10 @@ console.log(weekday);
 
         response.on("data", function(data) {
           const quoteData = JSON.parse(data);
-          // const quoteText = quoteData.contents.quotes[0].quote;
-          // const quoteAuther = quoteData.contents.quotes[0].author;
-          const quoteText = "placeholder";
-          const quoteAuther = "placeholder";
+          const quoteText = quoteData.contents.quotes[0].quote;
+          const quoteAuther = quoteData.contents.quotes[0].author;
+          // const quoteText = "placeholder";
+          // const quoteAuther = "placeholder";
           console.log(quoteText);
 
           const tempStatement = "<strong>目前台北氣溫" + temp + "°C</strong>。<br>最低<strong>" + tempMin + "°C</strong>，最高<strong>" + tempMax + "°C</strong>。<br>天氣狀態：" + desc+"。";
