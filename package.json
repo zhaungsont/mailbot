@@ -8,6 +8,9 @@
   },
   "author": "Michael Chuang",
   "license": "ISC",
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "axios": "^0.24.0",
     "express": "^4.17.1",

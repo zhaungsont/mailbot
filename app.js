@@ -51,7 +51,7 @@ let usStockBrief = "";
 let twStockBrief = "";
 
 //////////////////// Start Job Schedule ////////////////////
-const job = schedule.scheduleJob('1 57 * * * *', function() {
+const job = schedule.scheduleJob('1 31 * * * *', function() {
 
   //Get DYNAMIC Stock Info
   axios.request(financeOptions).then(function(response) {
