@@ -2,11 +2,11 @@ require('dotenv').config();
 
 //nodemailer npm
 const nodeMailer = require('nodemailer');
-const fs = require('fs');
+// const fs = require('fs');
 
 //account
-const account = require('./account.json');
-const apikeys = require('./apikeys.json');
+// const account = require('./account.json');
+// const apikeys = require('./apikeys.json');
 //schedule nmp
 const schedule = require('node-schedule');
 
@@ -55,7 +55,7 @@ let usStockBrief = "";
 let twStockBrief = "";
 
 //////////////////// Start Job Schedule ////////////////////
-const job = schedule.scheduleJob('1 5 * * * *', function() {
+const job = schedule.scheduleJob('1 8 * * * *', function() {
 
   //Get DYNAMIC Stock Info
   axios.request(financeOptions).then(function(response) {
