@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 //nodemailer npm
 const nodeMailer = require('nodemailer');
 const fs = require('fs');
@@ -13,7 +15,9 @@ const https = require("https");
 const app = express();
 
 //openweather url
-const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=Taipei&appid=" + apikeys.openweatherKey + "&units=metric&lang=zh_tw";
+// const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=Taipei&appid=" + apikeys.openweatherKey + "&units=metric&lang=zh_tw";
+const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=Taipei&appid=" + process.env.WEATHER_API + "&units=metric&lang=zh_tw";
+
 //quote url
 const quoteUrl = "https://quotes.rest/qod";
 
@@ -29,7 +33,7 @@ let financeOptions = {
     symbols: '^DJI,^GSPC,^TWII,'
   },
   headers: {
-    'x-api-key': apikeys.financeKey
+    'x-api-key': process.env.FINANCE_API
   }
 };
 let DJIName = null;
@@ -51,7 +55,7 @@ let usStockBrief = "";
 let twStockBrief = "";
 
 //////////////////// Start Job Schedule ////////////////////
-const job = schedule.scheduleJob('1 31 * * * *', function() {
+const job = schedule.scheduleJob('1 5 * * * *', function() {
 
   //Get DYNAMIC Stock Info
   axios.request(financeOptions).then(function(response) {
@@ -133,7 +137,7 @@ console.log(weekday);
         Morning briefing over.<br>
         寄出時間：${time}`
 
-          const receivers = fs.readFileSync('./receivers.txt', 'utf8')
+          const receivers = process.env.RECEIVERS
             .split('\r\n')
             .filter(e => !e.startsWith('//'))
             .join(',');
@@ -141,13 +145,13 @@ console.log(weekday);
           const transporter = nodeMailer.createTransport({
             service: 'hotmail',
             auth: {
-              user: account.hotmail.user,
-              pass: account.hotmail.pass
+              user: process.env.SENDER_EMAIL,
+              pass: process.env.SENDER_PASSWORD
             }
           });
 
           const mailOptions = {
-            from: account.hotmail.user,
+            from: process.env.SENDER_EMAIL,
             to: receivers, // list of receipients
             subject: `Your Morning Briefing on ${timeStr}`,
             html: `<p>${content}<p>`
