@@ -22,7 +22,16 @@ const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=Taipei&app
 const quoteUrl = "https://quotes.rest/qod";
 
 //課表
-const syllabus = require('./syllabus.json');
+// const syllabus = require('./syllabus.json');
+const syllabus = {
+  "Monday": "新聞英語採訪寫作編譯",
+  "Tuesday": "英語教學法、浪漫起英國文學",
+  "Wednesday": "無",
+  "Thursday": "體育、中英同步口譯、英語音韻學、英文專題研究與寫作",
+  "Friday": "語料庫輔助翻譯",
+  "Saturday": "無",
+  "Saturday": "無"
+}
 
 //yahoo finance
 const axios = require("axios").default;
@@ -89,11 +98,11 @@ const job = schedule.scheduleJob('1 8 * * * *', function() {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const timeStr = `${year}/${month}/${day}`;
-  const time = `${date.getHours()}時${date.getMinutes()}分${date.getUTCSeconds()}秒`;
+  const time = `${date.getHours()+1}時${date.getMinutes()}分${date.getUTCSeconds()}秒`;
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const weekday = days[ date.getDay() ];
 console.log(weekday);
-
+console.log(time);
 
   https.get(weatherUrl, function(response) {
     console.log(response.statusCode);
