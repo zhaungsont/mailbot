@@ -187,7 +187,7 @@ app.get("/", function(req,res){
 })
 
 setInterval(function() {
-    https.get("http://sakana-mailbot.herokuapp.com");
+    https.get("https://sakana-mailbot.herokuapp.com");
 }, 300000); // every 5 minutes (300000)
 
 app.listen(process.env.PORT || 3000, function(){
