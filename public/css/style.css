@@ -1,0 +1,79 @@
+body{
+  background-color: #EADEDE;
+}
+
+p{
+  font-family: 'Ubuntu', sans-serif;
+
+}
+
+.title{
+  line-height: 1.8em;
+  font-size: 2em;
+  /* font-family: 'Pacifico', cursive; */
+  /* font-family: 'Praise', cursive; */
+  font-family: 'Lobster', cursive;
+
+  background-color: #FFC286;
+  text-align: center;
+  width: 80%;
+  margin: 50% auto 20% auto;
+  padding: 1em;
+  border-radius: 30px;
+}
+
+.title h1{
+  margin: 0;
+}
+
+.sub-title{
+  line-height: 1.2em;
+font-size: 0.7em;
+font-family: 'Ubuntu', sans-serif;
+}
+
+.signup{
+  font-size: 0.6em;
+  margin: 0;
+}
+
+.signup a{
+  font-weight: bold;
+  color: #6166B3;
+  text-decoration: none;
+}
+
+.down-arrow{
+  text-align: center;
+  padding: 20%;
+
+}
+
+.down-arrow img{
+  width: 30%;
+  margin: auto;
+}
+
+#feature-section{
+  padding-top: 5%;
+}
+
+.features{
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 5%;
+}
+
+.features-images{
+  width: 100%;
+  margin: auto;
+  border-radius: 30px;
+  margin-bottom: 10%;
+
+}
+
+.features .desc{
+  font-weight: 400;
+  font-size: 0.7em;
+}

@@ -1,8 +1,6 @@
 //Sakana's Mailbot V1.0
 require('dotenv').config();
 
-
-
 //nodemailer npm
 const nodeMailer = require('nodemailer');
 // const fs = require('fs');
@@ -17,6 +15,7 @@ const express = require("express");
 //use it to ping my website to prevent idling
 const https = require("https");
 const app = express();
+app.use(express.static("public"));
 
 //openweather url
 // const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=Taipei&appid=" + apikeys.openweatherKey + "&units=metric&lang=zh_tw";
@@ -68,7 +67,7 @@ let usStockBrief = "";
 let twStockBrief = "";
 
 //////////////////// Start Job Schedule ////////////////////
-const job = schedule.scheduleJob('1 0 8 * * *', function() {
+const job = schedule.scheduleJob('1 0 1 * * *', function() {
 
   //Get DYNAMIC Stock Info
   axios.request(financeOptions).then(function(response) {
@@ -102,7 +101,7 @@ const job = schedule.scheduleJob('1 0 8 * * *', function() {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const timeStr = `${year}/${month}/${day}`;
-  const time = `${date.getHours()+1}時${date.getMinutes()}分${date.getUTCSeconds()}秒`;
+  const time = `${date.getHours()+8}時${date.getMinutes()}分${date.getUTCSeconds()}秒`;
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const weekday = days[ date.getDay() ];
 console.log(weekday);
@@ -192,4 +191,4 @@ setInterval(function() {
 
 app.listen(process.env.PORT || 3000, function(){
   console.log("Server started.");
-})
+});
