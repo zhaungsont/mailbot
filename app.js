@@ -1,3 +1,4 @@
+//Sakana's Mailbot V1.0
 require('dotenv').config();
 
 //nodemailer npm
@@ -64,7 +65,7 @@ let usStockBrief = "";
 let twStockBrief = "";
 
 //////////////////// Start Job Schedule ////////////////////
-const job = schedule.scheduleJob('1 35 * * * *', function() {
+const job = schedule.scheduleJob('1 0 8 * * *', function() {
 
   //Get DYNAMIC Stock Info
   axios.request(financeOptions).then(function(response) {
@@ -144,7 +145,9 @@ console.log(time);
         <p>今日是 ${weekday} ，今日課程：${syllabus[weekday]}。
         </p>
         Morning briefing over.<br>
-        寄出時間：${time}`
+        寄出時間：${time}
+        <p>Sakana's Mailbot V1.0</p>
+        `
 
           const receivers = process.env.RECEIVERS
             .split('\r\n')
