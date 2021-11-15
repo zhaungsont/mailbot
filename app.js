@@ -171,10 +171,11 @@ console.log(time);
             if (err) throw err;
             if (info) console.log(`Done sending!, send date: ${timeStr}`, info)
           });
-
         });
       });
     });
   });
 });
-console.log("app is running");
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Server started.");
+})
