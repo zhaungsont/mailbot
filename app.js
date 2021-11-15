@@ -1,6 +1,8 @@
 //Sakana's Mailbot V1.0
 require('dotenv').config();
 
+
+
 //nodemailer npm
 const nodeMailer = require('nodemailer');
 // const fs = require('fs');
@@ -12,6 +14,7 @@ const nodeMailer = require('nodemailer');
 const schedule = require('node-schedule');
 
 const express = require("express");
+//use it to ping my website to prevent idling
 const https = require("https");
 const app = express();
 
@@ -179,6 +182,14 @@ console.log(time);
     });
   });
 });
+app.get("/", function(req,res){
+  res.send("Sakana's Mailbot");
+})
+
+setInterval(function() {
+    http.get("http://sakana-mailbot.herokuapp.com");
+}, 300000); // every 5 minutes (300000)
+
 app.listen(process.env.PORT || 3000, function(){
   console.log("Server started.");
 })
