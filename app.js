@@ -67,7 +67,7 @@ let usStockBrief = "";
 let twStockBrief = "";
 
 //////////////////// Start Job Schedule ////////////////////
-const job = schedule.scheduleJob('1 0 1 * * *', function() {
+const job = schedule.scheduleJob('1 0 0 * * *', function() {
 
   //Get DYNAMIC Stock Info
   axios.request(financeOptions).then(function(response) {
@@ -101,7 +101,7 @@ const job = schedule.scheduleJob('1 0 1 * * *', function() {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const timeStr = `${year}/${month}/${day}`;
-  const time = `${date.getHours()+8}時${date.getMinutes()}分${date.getUTCSeconds()}秒`;
+  const time = `${date.getHours()+7}時${date.getMinutes()}分${date.getUTCSeconds()}秒`;
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const weekday = days[ date.getDay() ];
 console.log(weekday);
