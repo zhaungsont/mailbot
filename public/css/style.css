@@ -60,7 +60,12 @@ color: #2C272E;
 .signup a{
   font-weight: bold;
   color: #6166B3;
+	transition-duration: 0.4s;
   text-decoration: none;
+}
+
+.signup a:hover{
+  color: #32C1CD;
 }
 
 /* .down-arrow{
@@ -281,7 +286,7 @@ line-height: 1.2em;
 	}
 }
 
-@media screen and (min-width: 1300px) {
+@media screen and (min-width: 1024px) {
 	.title{
 		width: 50%;
 		margin: 15% auto 3% auto;
@@ -293,6 +298,7 @@ line-height: 1.2em;
 	.down-arrow img{
 		width: 5%;
 	}
+
 	.features{
 		margin: auto 25%;
 	}
