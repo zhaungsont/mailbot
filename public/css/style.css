@@ -329,3 +329,12 @@ line-height: 1.2em;
 		margin: auto 30%;
 	}
 }
+
+img{
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
