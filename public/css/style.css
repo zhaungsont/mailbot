@@ -164,6 +164,8 @@ font-size: 1.2em;
 width: 90%;
 border-radius: 15px 0 0 15px;
 border-style: none;
+outline: none;
+text-align: center;
 }
 /* CENTER INPUT PLACEHOLDER */
 ::-webkit-input-placeholder {
@@ -237,6 +239,11 @@ line-height: 1.2em;
   text-decoration: none;
   font-weight: bold;
   color: #6166B3;
+	transition-duration: 0.4s;
+}
+
+.copyright a:hover{
+  color: #32C1CD;
 }
 
 .attributes{
@@ -251,6 +258,12 @@ line-height: 1.2em;
 .attributes a{
   text-decoration: underline;
   color: #AAA492;
+	transition-duration: 0.4s;
+
+}
+
+.attributes a:hover{
+  color: #32C1CD;
 }
 
 #footer-section{
