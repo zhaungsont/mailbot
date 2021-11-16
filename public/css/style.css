@@ -53,7 +53,7 @@ color: #2C272E;
 }
 
 .signup{
-  font-size: 0.6em;
+  font-size: 0.9em;
   margin: 0;
 }
 
@@ -181,7 +181,7 @@ border-style: none;
   display: flex;
 }
 
-.wait-list button{
+/* .wait-list button{
   text-decoration: none;
   border-style: none;
   border-radius: 0 15px 15px 0;
@@ -189,10 +189,26 @@ border-style: none;
   color: white;
   background-color: #6166B3;
   transition-duration: 0.4s;
+} */
 
+.wait-list .button{
+  text-decoration: none;
+  border-style: none;
+  border-radius: 0 15px 15px 0;
+  font-weight: bold;
+  color: white;
+  background-color: #6166B3;
+  transition-duration: 0.4s;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 0.9em;
+	padding: 10px;
 }
 
-.wait-list button:hover{
+/* .wait-list button:hover{
+  background-color: #32C1CD;
+} */
+
+.wait-list .button:hover{
   background-color: #32C1CD;
 }
 
