@@ -16,6 +16,8 @@ const express = require("express");
 const https = require("https");
 const app = express();
 app.use(express.static("public"));
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({extended: true}));
 
 //openweather url
 // const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=Taipei&appid=" + apikeys.openweatherKey + "&units=metric&lang=zh_tw";
@@ -184,6 +186,49 @@ console.log(time);
 
 app.get("/", function(req,res){
   res.sendFile(__dirname + "/index.html")
+})
+
+app.post("/", function(req,res){
+  const email = req.body.email;
+  console.log(email);
+
+  function newSub(){
+    //Get DYNAMIC Date
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const timeStr = `${year}/${month}/${day}`;
+    const time = `${date.getHours()+7}時${date.getMinutes()}分${date.getUTCSeconds()}秒`;
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const weekday = days[ date.getDay() ];
+
+    const transporter = nodeMailer.createTransport({
+      service: 'hotmail',
+      auth: {
+        user: process.env.SENDER_EMAIL,
+        pass: process.env.SENDER_PASSWORD
+      }
+    });
+
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL,
+      to: "zhaungsont@gmail.com",
+      subject: `Sakana, You Have a New Subscribe Request on ${timeStr}`,
+      html: `<p>Sakana, a user has sent their Mailbot subscription request to you. <br>
+      Their email is : <strong>${email}</strong>. Please reply to them as soon as possible. <br>
+      Best, <br>
+      Sakana's Mailbot.<p><br>
+      送出時間：${timeStr} ${weekday} ${time}`
+    }
+
+    // send email
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) throw err;
+      if (info) console.log(`Done sending!, send date: ${timeStr}`, info)
+    });
+  }
+  newSub();
 })
 
 setInterval(function() {

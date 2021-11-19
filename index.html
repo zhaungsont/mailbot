@@ -76,11 +76,13 @@
       <div class="wait-list">
         <h1>Join the Wait List</h1>
         <p>Sign up now to receive the newest information on Sakana's Mailbot.</p>
-        <div class="wrapper">
-          <input type="text" name="email" value="" placeholder="your email here...">
-          <a class="button submit" href="https://zhsont.wordpress.com/contact/">JOIN&nbsp</a>
-          <!-- <button type="submit" name="button">JOIN&nbsp</button> -->
-        </div>
+        <form id="sign-up" action="/" method="post">
+          <div class="wrapper">
+            <input type="email" name="email" value="" placeholder="your email here...">
+            <a class="button submit" onclick="document.getElementById('sign-up').submit();" href="#">JOIN&nbsp</a>
+            <!-- <button type="submit" name="button">JOIN&nbsp</button> -->
+          </div>
+        </form>
         <p>We will notify you when the public version goes online!</p>
       </div>
     </section>
@@ -116,7 +118,7 @@
     </section>
   <script type="text/javascript">
     document.querySelector(".submit").addEventListener("click", function startEngine() {
-    alert("Sorry...this form is unfinished. Meanwhile, I'll take you to my \"Contact Me\" page.");
+    alert("Thanks for submitting.");
     });
   </script>
   </body>
