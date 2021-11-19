@@ -214,9 +214,9 @@ app.post("/", function(req,res){
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
       to: "zhaungsont@gmail.com",
-      subject: `Sakana, You Have a New Subscribe Request on ${timeStr}`,
+      subject: `Sakana, ${email} Has Subscribed to Mailbot Waitlist on ${timeStr}`,
       html: `<p>Sakana, a user has sent their Mailbot subscription request to you. <br>
-      Their email is : <strong>${email}</strong>. Please reply to them as soon as possible. <br>
+      Their email is : <strong>${email}</strong>. Please reply to them as soon as possible. <br><br>
       Best, <br>
       Sakana's Mailbot.<p><br>
       送出時間：${timeStr} ${weekday} ${time}`
